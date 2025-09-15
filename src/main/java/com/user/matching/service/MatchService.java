@@ -1,5 +1,6 @@
 package com.user.matching.service;
 
+import com.user.matching.MatchConfig;
 import com.user.matching.dto.UserDTO;
 import com.user.matching.dto.UserPreferenceDTO;
 import com.user.matching.entity.User;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 public class MatchService {
 
     private final UserRepository userRepository;
+    private final MatchConfig matchConfig;
 
     public List<UserDTO> findMatches(UUID userId) {
         User currentUser = userRepository.findById(userId).orElseThrow();
@@ -33,7 +35,7 @@ public class MatchService {
         List<User> allUsers = userRepository.findAllWithPreferences();
 
         // Optional: custom parallelism level
-        ForkJoinPool customThreadPool = new ForkJoinPool(8); // 8 threads
+        ForkJoinPool customThreadPool = new ForkJoinPool(matchConfig.getThreads());
         try {
             return customThreadPool.submit(() ->
                     allUsers.parallelStream()
