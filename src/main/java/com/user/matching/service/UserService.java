@@ -6,6 +6,7 @@ import com.user.matching.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -28,6 +29,10 @@ public class UserService {
 
     public User addPreference(Long userId, UserPreference preference) {
         return userRepository.updatePreferences(userId, preference);
+    }
+
+    public List<User> getAllNoPaging() {
+        return userRepository.findAll();
     }
 
 }

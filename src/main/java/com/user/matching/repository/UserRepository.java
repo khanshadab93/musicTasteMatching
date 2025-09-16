@@ -14,6 +14,7 @@ public interface UserRepository extends JpaRepository<User,UUID> {
 
     boolean existsByEmail(String email);
 
+
     // Fetch users with preferences to avoid lazy loading issues
     @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.preferences")
     List<User> findAllWithPreferences();

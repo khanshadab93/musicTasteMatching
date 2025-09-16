@@ -23,7 +23,6 @@ public class MatchController {
     public ResponseEntity<List<UserDTO>> getMatches(@RequestParam UUID userId) {
         long startTime = System.currentTimeMillis();
         List<UserDTO> matches = matchService.findMatches(userId);
-        log.info("------> {} ms", System.currentTimeMillis() - startTime);
         return ResponseEntity.ok(matches);
     }
 }

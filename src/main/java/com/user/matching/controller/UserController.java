@@ -7,14 +7,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody User user) {
         String result = userService.registerUser(user);
@@ -25,5 +25,10 @@ public class UserController {
     public ResponseEntity<User> addPreference(@PathVariable Long userId,
                                               @RequestBody UserPreference preference) {
         return ResponseEntity.ok(userService.addPreference(userId, preference));
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<User>> getAll() {
+        return ResponseEntity.ok(userService.getAllNoPaging());
     }
 }
