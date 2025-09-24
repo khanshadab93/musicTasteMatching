@@ -7,6 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
@@ -22,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/preferences")
-    public ResponseEntity<User> addPreference(@PathVariable Long userId,
-                                              @RequestBody UserPreference preference) {
+    public ResponseEntity<User> addPreference(@PathVariable UUID userId,
+                                              @RequestBody List<UserPreference> preference) {
         return ResponseEntity.ok(userService.addPreference(userId, preference));
     }
 }

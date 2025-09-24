@@ -1,9 +1,12 @@
 package com.user.matching.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "user_preferences")
@@ -12,8 +15,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserPreference {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     private String genre;
     private String artist;
@@ -21,5 +24,6 @@ public class UserPreference {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 }
