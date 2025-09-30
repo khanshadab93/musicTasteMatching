@@ -20,9 +20,10 @@ public class MatchController {
     private final MatchService matchService;
 
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getMatches(@RequestParam UUID userId) {
+    public ResponseEntity<List<UserDTO>> getMatches(@RequestParam String userId) {
+        UUID userIdUUID = UUID.fromString(userId);
         long startTime = System.currentTimeMillis();
-        List<UserDTO> matches = matchService.findMatches(userId);
+        List<UserDTO> matches = matchService.findMatches(userIdUUID);
         log.info("------> {} ms", System.currentTimeMillis() - startTime);
         return ResponseEntity.ok(matches);
     }
